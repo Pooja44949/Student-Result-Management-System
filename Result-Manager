@@ -1,0 +1,87 @@
+import java.util.*;
+
+public class ResultManager {
+    Student[] students = new Student[50];
+    int count = 0;
+    Scanner sc = new Scanner(System.in);
+
+    public void addStudent() {
+        try {
+            System.out.print("Enter Roll Number: ");
+            int roll = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter Student Name: ");
+            String name = sc.nextLine();
+
+            int[] marks = new int[3];
+            for (int i = 0; i < 3; i++) {
+                System.out.print("Enter marks for subject " + (i + 1) + ": ");
+                marks[i] = sc.nextInt();
+            }
+
+            Student st = new Student(roll, name, marks);
+            st.validateMarks();   // may throw custom exception
+
+            students[count++] = st;
+            System.out.println("Student added successfully.\n");
+
+        } catch (InvalidMarksException e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid input type.\n");
+            sc.nextLine(); // clear input buffer
+        }
+    }
+
+    public void showStudentDetails() {
+        try {
+            System.out.print("Enter Roll Number to search: ");
+            int roll = sc.nextInt();
+
+            for (int i = 0; i < count; i++) {
+                if (students[i].rollNumber == roll) {
+                    students[i].displayResult();
+                    System.out.println();
+                    return;
+                }
+            }
+            System.out.println("Student not found.\n");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid input.\n");
+            sc.nextLine();
+        }
+    }
+
+    public void mainMenu() {
+        try {
+            while (true) {
+                System.out.println("===== Student Result Management System =====");
+                System.out.println("1. Add Student");
+                System.out.println("2. Show Student Details");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice: ");
+
+                int choice = sc.nextInt();
+
+                switch (choice) {
+                    case 1 -> addStudent();
+                    case 2 -> showStudentDetails();
+                    case 3 -> {
+                        System.out.println("Exiting program. Thank you!");
+                        return;
+                    }
+                    default -> System.out.println("Invalid choice.\n");
+                }
+            }
+        } finally {
+            sc.close();
+            System.out.println("Scanner closed. Program terminated.");
+        }
+    }
+
+    public static void main(String[] args) {
+        new ResultManager().mainMenu();
+    }
+}
