@@ -14,3 +14,21 @@ Custom Exceptions
 Arrays
 Classes and Objects
 Exception Handling (try-catch-finally)
+## Technologies Used
+- Java (JDK 8+)
+- VS Code / IntelliJ / Eclipse
+
+---
+
+## Features
+- Input validation for marks (0–100)
+- Pass/Fail result calculation
+- Menu-driven interface
+
+---
+
+## Author
+**Your Name**  
+BTech CSE – Semester 3
+
+**Pooja Aggarwal** 
